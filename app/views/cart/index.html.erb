@@ -1,0 +1,50 @@
+<main>
+    <header>
+        <b>Cart</b>
+    </main>
+    <hr>
+</header>
+<% if @cart.empty? %>
+<p>The cart is empty</p>
+<% end %>
+
+<div id="itemsContainer">
+<a href= "/products", class="button">Keep Shopping</a>
+<br>
+<br>
+<table id="customers"> <% total = 0 %>
+
+<% @cart.each do |id, quantity| %>
+<% product = Product.find_by_id(id) %>
+
+<tr>
+<td> <div class="image"> 
+
+<%= link_to (image_tag product.image_url(:thumb), :style =>"height:40px"), product %> </div>
+</td>
+
+<td class="title"><%= link_to product.title, product %></td>
+
+<td class="price"><%= number_to_currency(product.price, :unit =>"€") %></td> 
+<td> <a href="cart/decrease/<%= product.id %>" >-<i class='fas fa-arrow-alt-circle-down'></i></a></td> </td>
+<td class="quantity"><%= quantity %></td> 
+<td> <a href="cart/increase/<%= product.id %>" >+<i class='fas fa-arrow-alt-circle-down'></i></a></td> </td>
+
+<td class="price"><%= number_to_currency(quantity * product.price, :unit =>"€") %></td>
+<% total += quantity * product.price %>
+<td><a href="/cart/remove/<%= product.id%>">X</a></td> 
+<% end %> <tr>
+  
+ 
+</tr>
+</table>
+<br>
+<% if !@cart.empty? %>
+
+Grand Total: <%= number_to_currency(total, :unit => "€") %>
+<br>
+<br>
+<a href="/cart/clear" class="button">Clear Cart</a>
+<a href="/checkout" class="button">Checkout</a>
+<% end %>
+</div>

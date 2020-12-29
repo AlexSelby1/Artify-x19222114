@@ -1,0 +1,42 @@
+<%= form_for @product, local: true, html: {multipart:true} do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+        <% @product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, :rows =>10, style: 'width:100%;'%>
+  </div>
+   <div class="row justify-content-between">
+    <div class="col-md-2">
+    <%= form.label :image %><br><br>
+    <%= form.file_field :image %>
+    <% if form.object.image? %>
+      <%= image_tag form.object.image.thumb.url %>
+      <%= form.label :remove_image %>
+      <%= form.check_box :remove_image %> 
+    <% end %>
+  </div>
+     <div class="col-md-2">
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+
+  </div>
+</div>
+  <div class="actions">
+    <%= form.submit value="Submit" %>
+  </div>
+<% end %>

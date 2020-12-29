@@ -1,0 +1,11 @@
+ <div class="image">
+ <%= link_to (image_tag product.image_url, :style =>"height:60px") %>
+ </div>
+
+ </td>
+    <b>Title: </b><%= product.title %>
+    <b>Owner:</b> <%= product.user.username %>
+    <td> <a href="cart/increase/<%= product.id %>" >Increase Items<i class='fas fa-arrow-alt-circle-down'></i></a></td> </td>
+
+<td> <a href="cart/reduce/<%= product.id %>" >Reduce Items<i class='fas fa-arrow-alt-circle-down'></i></a></td> </td>
+  </div>

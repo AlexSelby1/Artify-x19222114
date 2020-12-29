@@ -1,0 +1,86 @@
+   <main>
+    <header>
+        <b>Profile</b>
+    </main>
+    <hr>
+</header>
+<br>
+  
+<div class="container emp-profile">
+            <form method="post">
+                <div class="row">
+                    <div class="col">
+
+                        <div class="profile-img">
+                             <% if @user.userImage_url %>
+                              <%= image_tag @user.userImage_url(:thumb) %>
+                              <% else %>
+                              <%= image_tag("/assets/blank-profile-picture.png", alt:"ProfilePic") %>
+                              <% end %>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="profile-head">
+                        </div>
+                    </div>
+                    <div class="col">
+                         <div class="col-md-3">
+                         <%= link_to "Edit", edit_registration_path(@user), :class => "button", :role => "button" %>
+                           </div>
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <br>
+                                                <label>UserID:</label>
+                                            </div>
+                                            
+                                            <div class="col-md-3">
+                                                <br>
+                                                <p><%= @user.id %></p>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label>Name:</label>
+                                            </div>
+                                            <br>
+                                            <div class="col-md-3">
+                                                <p><%= @user.username %></p>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label>Email:</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p><%= @user.email %></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <br>
+                        <div class="col-md-4">
+                        <br>
+                        <% if(!user_is_admin) %>
+                        <%= link_to "My Orders", ':id/orders', :class => "button", :role => "button" %>
+                        <% if (user_is_seller) %>
+                        <%= link_to "My Products", ":id/products", :class => "button", :role => "button" %>
+                        <% end %>
+                        <% end %>
+                        <% if (user_is_admin) %>
+                        <%= link_to "All Orders", orders_path, :class => "button", :role => "button" %>
+                        <%= link_to "All Products", products_path, :class => "button", :role => "button" %>
+                        <%= link_to "All Users", users_path, :class => "button", :role => "button" %>
+                        <% end %>
+                        </div>
+                    </div>
+                </div>
+            </form>           
+        </div>
+

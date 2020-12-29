@@ -1,0 +1,33 @@
+<main>
+    <header>
+        <b>My Products</b>
+    </main>
+    <hr>
+</header>
+    <% if @myproduct.empty? %>
+<p>You have no products</p>
+  <% end %>
+
+    <% @myproduct.each do |product| %>
+    <div class ="producthols">
+    <h1><%= product.title %></h1>
+    <% if product.image_url %>
+    <%= image_tag product.image_url(:thumb) %>
+    <% end %> 
+    <p><%= product.description %></p>
+    <p><b>Price:</b> <%= number_to_currency(product.price, :unit => "€") %>
+    <br>
+    <b>Owner:</b> <%= product.user.username %>
+    <br>
+    <b>ID:</b> <%= product.id %>
+
+    <p>
+    <%= link_to 'View', product, :class => "button", :role => "button" %>
+    </p>
+  </div>
+      <% end %>
+  </div>
+ <% if ((user_is_admin) || (user_is_seller)) %>
+<br>
+<%= link_to 'New Product', new_product_path, :class => "button", :role => "button" %>
+ <% end %>

@@ -1,0 +1,25 @@
+<main>
+    <header>
+        <b>All Users</b>
+    </main>
+    <hr>
+</header>
+
+<% @users.each do |user| %>
+
+<div class ="producthols">
+    
+<h1><%= user.username %></h1>
+    <% if user.userImage_url %>
+    <%= image_tag user.userImage_url(:thumb) %>
+    <% else %>
+    <%= image_tag("/assets/blank-profile-picture.png", alt:"ProfilePic", width:"200px", height:"200px") %>
+    <% end %>
+<p><%= user.email %></p>
+   <p>
+    <%= link_to 'View', user, :class => "button", :role => "button" %>
+    <%= link_to 'Edit', edit_user_path(user), :class => "button", :role => "button" %>
+    <%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button", :role => "button" %>
+    </p>
+    </div>
+ <% end %>

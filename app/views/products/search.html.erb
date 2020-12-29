@@ -1,0 +1,22 @@
+   <h2>You Searched Our Product Catalog For <%= @search_term %></h2>
+<% if @products.length == 0 %>
+<br />
+<h2>No products were found to match your search</h2>
+<% end %>
+    <% @products.each do |product| %>
+    <div class ="producthols">
+    <h1><%= product.title %></h1>
+    <%= image_tag product.image_url(:thumb) %>
+    <p><%= product.description %></p>
+    <p><b>Price:</b> <%= number_to_currency(product.price, :unit => "€") %>
+    <br>
+    <b>Owner:</b> <%= product.user.username %>
+    <br>
+    <b>ID:</b> <%= product.id %>
+
+    <p>
+    <%= link_to 'View', product, :class => "button", :role => "button" %>
+    </p>
+  </div>
+      <% end %>
+  </div>

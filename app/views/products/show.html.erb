@@ -1,0 +1,30 @@
+<div id="productContainer">
+<main>
+    <header>
+        <h1><%= @product.title %></h1>   
+        </main>
+    <hr>
+</header>
+<% if @product.image_url %>
+<%= image_tag @product.image_url(:default) %>
+<% end %>
+        <h2><%= @product.description %></h1>
+<div class="producthols">
+<p><b>Price:</b> <%= number_to_currency(@product.price, :unit => "€") %>
+<br>
+<b>Owner:</b> <%= @product.user.username %>
+<br>
+<b>ID:</b> <%= @product.id %></p>
+<p>
+<% if !user_is_owner %>
+<a href="/cart/<%= @product.id %>" class="button">Add To Cart</a>
+<% end %>
+    <% if ((user_is_admin) || (user_is_owner)) %>
+    <%= link_to 'Edit', edit_product_path(@product), :class => "button", :role => "button" %>
+
+    <%= link_to 'Delete', @product, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button", :role => "button" %>
+    <% end %>
+    <%= link_to 'Back', products_path, :class => "button", :role => "button" %>
+</p>
+</div>
+</div>

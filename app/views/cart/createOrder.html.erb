@@ -1,0 +1,46 @@
+<div id="itemsContainer">
+ <h1>Thank You<br>
+ You have just placed Order 
+ <%=@order.id %></h1>
+</div>
+  <table id="customers">
+<tr>
+ <% @orders.limit(1).order(id: :desc).each do |order| %> </td>
+ <% end %>
+</tr>
+</table>
+  <table id="customers">
+     <% @total = 0 %>
+    <% @orderitems.each do |id,quantity| %>
+<tr>
+    <% product = Orderitem.find_by_id(id) %>
+    <td><%= product.title %></td>
+    <td><%= product.quantity %></td>
+    <td><%=number_to_currency(product.price, :unit => "€")%></td>
+    <td><%= number_to_currency(product.quantity * product.price, :unit => "€") %></td>
+</tr>
+    <% timx = (product.quantity * product.price)%>
+    <% @total += timx %>
+</tr>
+    <% end %>
+<tr>
+    <td>Order Total: &euro; <%= @total %></td>
+    <% shipping = 20 %>
+    <% @overall = shipping + @total%>
+<tr>
+    <td>Shipping &euro;20</td>
+    <td>Grand Total &euro; <%= @overall %></td>
+</tr>
+</tr>
+</table>
+<br>
+    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="a.selb121@gmail.com">
+    <input type="hidden" name="item_name" value="Artify Order Number <%= @order.id %>">
+    <input type="hidden" name="currency_code" value="EUR">
+    <input type="hidden" name="amount" value="<%= @overall %>">
+    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+    <input type="hidden" name="return" value="https://dd1828a3cbd94daf9da0abac4f038fe1.vfs.cloud9.us-east-1.amazonaws.com/confirmation/<%= @order.id %>" >
+    <input type="hidden" name="notify_url" value="https://dd1828a3cbd94daf9da0abac4f038fe1.vfs.cloud9.us-east-1.amazonaws.com/confirmation/<%= @order.id %>" >
+</form>
